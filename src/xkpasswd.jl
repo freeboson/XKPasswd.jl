@@ -12,10 +12,10 @@ function generate(n::Integer; npws::Integer=1, capitalize::Bool=false,
     @assert n > 0 "Must use at least 1 random word"
     @assert npws > 0 "Must generate at least 1 password"
     open(wordlist) do f
-        lines = readlines(f)
+        lines = readlines(f, chomp=true)
         println(STDERR, "Estimated entropy: ~$(pwentropy(n,length(lines),append_digit) |> round |> Int) bits.")
         [(
-            words = map(chomp, rand(lines, n));
+            words = rand(lines, n);
             cased_words = capitalize ?  map(ucfirst, words) : words;
             string(join(cased_words, delimstr), 
                    append_digit ? "$(delimstr)$(rand(0:9))" : "")
