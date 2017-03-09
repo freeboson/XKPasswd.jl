@@ -26,6 +26,8 @@ Running this is trivial why Julia's package manager:
 
 ```jlcon
 julia> Pkg.add("xkpasswd")
+INFO: Cloning cache of xkpasswd from https://github.com/freeboson/xkpasswd.jl.git
+INFO: Installing xkpasswd v0.0.1
 
 julia> using xkpasswd;
 
