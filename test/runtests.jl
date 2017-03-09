@@ -1,5 +1,6 @@
 using xkpasswd
 using Base.Test
 
-# write your own tests here
-@test 1 == 2
+srand(0)
+
+@test xkpasswd.generate(4) == ["ups flux photos bits 4"]
