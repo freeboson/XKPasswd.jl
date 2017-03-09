@@ -26,8 +26,22 @@ Running this is trivial why Julia's package manager:
 
 ```jlcon
 julia> Pkg.add("xkpasswd")
+
 julia> using xkpasswd;
-julia> xkpasswd.generate(4)
+
+julia> xkpasswd.generate(4, append_digit=false)
+Estimated entropy: ~53 bits.
+1-element Array{String,1}:
+ "correct horse battery staple"
+
+julia> xkpasswd.generate(6, npws=5, delimstr="-", capitalize=true)
+Estimated entropy: ~83 bits.
+5-element Array{String,1}:
+ "Hawaiian-Danny-Bytes-Pike-Players-Unexpected-9"
+ "Sync-Ladies-Todd-Wishing-Deaf-Reforms-0"
+ "Pg-Bringing-Entirely-Printer-Sp-Norm-8"
+ "Loves-Familiar-Rick-Laptops-Eating-Eau-8"
+ "Syria-Stack-Routine-Semester-Productive-Play-0"
 ```
 
 Don't use any of the above as your own password :)
