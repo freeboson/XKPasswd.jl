@@ -1,6 +1,7 @@
 module xkpasswd
 
-datapath = joinpath(@__DIR__, "..", "data")
+#datapath = joinpath(@__DIR__, "..", "data")
+datapath = joinpath(Pkg.dir("xkpasswd"), "data")
 google10kpath = joinpath(datapath, "google-10000-english")
 
 pwentropy(n, total, digit) = n*log2(total) + (digit ? log2(10) : 0)
@@ -31,11 +32,13 @@ function generate(n::Integer, wordlist::AbstractString; npws::Integer=1,
     @assert n > 0 "Must use at least 1 random word"
     @assert npws > 0 "Must generate at least 1 password"
     open(wordlist) do f
-        lines = readlines(f, chomp=true)
+#        lines = readlines(f, chomp=true)
+        lines = readlines(f);
         println(STDERR, "Estimated entropy: ",
                 "~$(round(Int, pwentropy(n,length(lines),append_digit))) bits.")
         [(
-            words = rand(lines, n);
+#            words = rand(lines, n);
+            words = map(chomp, rand(lines, n));
             cased_words = capitalize ?  map(ucfirst, words) : words;
             string(join(cased_words, delimstr), 
                    append_digit ? "$(delimstr)$(rand(0:9))" : "")
