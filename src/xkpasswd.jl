@@ -1,7 +1,7 @@
 module xkpasswd
 
 #datapath = joinpath(@__DIR__, "..", "data")
-datapath = joinpath(Pkg.dir("xkpasswd"), "data")
+datapath = joinpath(dirname(@__FILE__), "..", "data")
 google10kpath = joinpath(datapath, "google-10000-english")
 
 pwentropy(n, total, digit) = n*log2(total) + (digit ? log2(10) : 0)
