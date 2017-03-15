@@ -1,11 +1,10 @@
-
 ```
-                    _                                    _    _ _ 
-              __  _| | ___ __   __ _ ___ _____      ____| |  (_) |
-              \ \/ / |/ / '_ \ / _` / __/ __\ \ /\ / / _` |  | | |
-               >  <|   <| |_) | (_| \__ \__ \\ V  V / (_| |_ | | |
-              /_/\_\_|\_\ .__/ \__,_|___/___/ \_/\_/ \__,_(_)/ |_|
-                        |_|                                |__/   
+__  __        ___                          _    _ _ 
+\ \/ / /\ /\ / _ \__ _ ___ _____      ____| |  (_) |
+ \  / / //_// /_)/ _` / __/ __\ \ /\ / / _` |  | | |
+ /  \/ __ \/ ___/ (_| \__ \__ \\ V  V / (_| |_ | | |
+/_/\_\/  \/\/    \__,_|___/___/ \_/\_/ \__,_(_)/ |_|
+                                             |__/   
 ```
 [![Build Status](https://travis-ci.org/freeboson/XKPasswd.jl.svg?branch=master)](https://travis-ci.org/freeboson/XKPasswd.jl)
 [![Coverage Status](https://coveralls.io/repos/freeboson/XKPasswd.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/freeboson/XKPasswd.jl?branch=master)
