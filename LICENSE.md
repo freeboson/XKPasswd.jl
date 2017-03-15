@@ -1,4 +1,4 @@
-The xkpasswd.jl package is licensed under the MIT "Expat" License:
+The XKPasswd.jl package is licensed under the MIT "Expat" License:
 
 > Copyright (c) 2017: Sujeet Akula.
 > 
