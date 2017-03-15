@@ -1,4 +1,4 @@
-module xkpasswd
+module XKPasswd
 
 #datapath = joinpath(@__DIR__, "..", "data")
 datapath = joinpath(dirname(@__FILE__), "..", "data")
