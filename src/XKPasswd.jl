@@ -1,10 +1,21 @@
 module XKPasswd
 
+using Base.prettyprint_getunits, Base._cnt_units
+
+const secper100y = 3.154e9
+
 #datapath = joinpath(@__DIR__, "..", "data")
 datapath = joinpath(dirname(@__FILE__), "..", "data")
 google10kpath = joinpath(datapath, "google-10000-english")
 
 pwentropy(n, total, digit) = n*log2(total) + (digit ? log2(10) : 0)
+pw100yattrate(s) = BigFloat(2)^s / secper100y
+
+function pw100yattrate_pretty(s)
+    rate = pw100yattrate(s) 
+    (atts, unit) = prettyprint_getunits(rate, length(_cnt_units), 1000)
+    string(round(Int, atts), _cnt_units[unit])
+end
 
 @enum WordList simple jargon google_20k google_10k google_10k_clean google_10k_usa google_10k_usa_clean google_10k_usa_clean_short google_10k_usa_clean_medium google_10k_usa_clean_long
 
@@ -34,8 +45,11 @@ function generate(n::Integer, wordlist::AbstractString; npws::Integer=1,
     open(wordlist) do f
 #        lines = readlines(f, chomp=true)
         lines = readlines(f);
-        println(STDERR, "Estimated entropy: ",
-                "~$(round(Int, pwentropy(n,length(lines),append_digit))) bits.")
+        s = pwentropy(n, length(lines), append_digit)
+        
+        println(STDERR, "Entropy: ~", round(Int, s), " bits; ",
+                "100y BF attempt rate: ", pw100yattrate_pretty(s), " att/s.")
+
         [(
 #            words = rand(lines, n);
             words = map(chomp, rand(lines, n));
