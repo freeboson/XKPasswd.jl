@@ -1,20 +1,26 @@
 module XKPasswd
 
-using Base.prettyprint_getunits, Base._cnt_units
+using Base.prettyprint_getunits
+
+const superunits = ["", " k", " M", " G", " T", " P", " E", " Z", " Y"]
+#const subunits   = ["", " m", " μ", " n", " p", " f", " a", " z", " y"]
 
 const secper100y = 3.154e9
 
-#datapath = joinpath(@__DIR__, "..", "data")
 datapath = joinpath(dirname(@__FILE__), "..", "data")
 google10kpath = joinpath(datapath, "google-10000-english")
 
 pwentropy(n, total, digit) = n*log2(total) + (digit ? log2(10) : 0)
 pw100yattrate(s) = BigFloat(2)^s / secper100y
 
-function pw100yattrate_pretty(s)
+function pw100yattrate_pretty(s::Real)::AbstractString
     rate = pw100yattrate(s) 
-    (atts, unit) = prettyprint_getunits(rate, length(_cnt_units), 1000)
-    string(round(Int, atts), _cnt_units[unit])
+    if rate < 1
+        @sprintf("%.1E", s)
+    else
+        (atts, unit) = prettyprint_getunits(rate, length(superunits), 1000)
+        string(round(BigInt, atts), superunits[unit])
+    end
 end
 
 @enum WordList simple jargon google_20k google_10k google_10k_clean google_10k_usa google_10k_usa_clean google_10k_usa_clean_short google_10k_usa_clean_medium google_10k_usa_clean_long
