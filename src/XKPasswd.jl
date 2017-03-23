@@ -121,9 +121,9 @@ end
 
 Starts cycling through randomly generated passwords, selecting the last one once
 you hit [Enter] on your keyboard. Arguments are the same as in
-`XKPasswd.generate`, though without `npws` and `quiet`. NOTE: this function puts
-VT100 commands to STDOUT and reads from file descriptor 0, so it might not be
-applicable in all situations.
+[`XKPasswd.generate`](@ref), though without `npws` and `quiet`. NOTE: this
+function puts VT100 commands to STDOUT and reads from file descriptor 0, so it
+might not be applicable in all situations.
 """
 function spin_the_wheel(n::Integer=4, wordlist::WordList=simple;
                         capitalize::Bool=false, delimstr::AbstractString=" ",
