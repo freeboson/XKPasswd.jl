@@ -12,7 +12,7 @@ __  __        ___                          _    _ _
 
 
 This is a password generator written in [Julia](https://julialang.org), inspired
-by [XKCD #963](https://xkcd.com/936/). There are word lists bundled with this
+by [xkcd #963](https://xkcd.com/936/). There are word lists bundled with this
 repo, including the lists from [this
 repository](https://github.com/first20hours/google-10000-english) (included as
 a git submodule), but you can use also use your own.

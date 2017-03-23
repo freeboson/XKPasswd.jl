@@ -2,8 +2,7 @@ module XKPasswd
 
 """
 `XKPasswd` generates memorable passwords for you in the style of diceware and
-[this xkcd comic](https://xkcd.com/936/). Note: diceware fairly explicitly tells
-you to use dice for randomness and *not* a PRNG, so keep that in mind.
+[xkcd #936](https://xkcd.com/936/).
 
 This module does not export symbols but the main functions of interest are:
 
@@ -15,6 +14,11 @@ This module does not export symbols but the main functions of interest are:
   formatting
 - `XKPasswd.spin_the_wheel`: cycles through random passwords until you stop it
   (should be used from REPL or a terminal)
+
+!!! warning
+
+    Diceware fairly explicitly tells you to use dice for randomness and *not* a
+    PRNG, so keep that in mind. (Do you know where your entropy comes from?)
 """
 XKPasswd
 
@@ -59,6 +63,12 @@ wordlistfiles = Dict(simple => joinpath(datapath, "simple.txt"),
                      google_10k_usa_clean_long => joinpath(google10kpath,
                          "google-10000-english-usa-no-swears-long.txt"))
 
+function stats(n, l, d)::AbstractString
+    s = pwentropy(n, l, d)
+    string("Entropy: ~", round(Int, s), " bits; 100y BF attempt rate: ",
+           pw100yattrate_pretty(s), " att/s.")
+end
+
 """
     XKPasswd.generate(n[, wordlist=XKPasswd.simple]; <keyword arguments>)
 
@@ -93,10 +103,7 @@ function generate(n::Integer, wordlist::AbstractString; npws::Integer=1,
         lines = readlines(f);
 
         if (!quiet)
-            s = pwentropy(n, length(lines), append_digit)
-            println(STDERR, "Entropy: ~", round(Int, s), " bits; ",
-                    "100y BF attempt rate: ", pw100yattrate_pretty(s),
-                    " att/s.")
+            println(STDERR, stats(n, length(lines), append_digit))
         end
 
         [(
@@ -117,17 +124,21 @@ function generate(n::Integer, wordlist::WordList=simple; npws::Integer=1,
 end
 
 """
-    XKPasswd.spin_the_wheel(n::Integer=4; <keyword arguments>)
+    XKPasswd.spin_the_wheel(n::Integer=4[, wordlist=XKPasswd.simple]; <keyword arguments>)
 
 Starts cycling through randomly generated passwords, selecting the last one once
 you hit [Enter] on your keyboard. Arguments are the same as in
-[`XKPasswd.generate`](@ref), though without `npws` and `quiet`. NOTE: this
-function puts VT100 commands to STDOUT and reads from file descriptor 0, so it
-might not be applicable in all situations.
+[`XKPasswd.generate`](@ref), though without `npws` and `quiet`.
+
+!!! note
+
+    This function puts VT100 commands to `STDOUT` and reads from file descriptor
+    `0`, so it might not be applicable in all situations.
 """
-function spin_the_wheel(n::Integer=4, wordlist::WordList=simple;
+function spin_the_wheel(n::Integer=4, wordlist::AbstractString;
                         capitalize::Bool=false, delimstr::AbstractString=" ",
                         append_digit::Bool=true)
+    println(STDERR, stats(n, length(lines), append_digit))
     println("Spinning... Press [enter] to end\n\n")
     while true
         ev = poll_fd(RawFD(0), 0, readable=true)
@@ -141,6 +152,13 @@ function spin_the_wheel(n::Integer=4, wordlist::WordList=simple;
             break
         end
     end
+end
+
+function spin_the_wheel(n::Integer, wordlist::WordList=simple;
+                  capitalize::Bool=false, delimstr::AbstractString=" ",
+                  append_digit::Bool=true)
+    spin_the_wheel(n, wordlistfiles[wordlist], capitalize=capitalize,
+                   delimstr=delimstr, append_digit=append_digit)
 end
 
 end # module
