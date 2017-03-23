@@ -20,9 +20,9 @@ a git submodule), but you can use also use your own.
 Quickstart
 ----------
 
-Running this is trivial why Julia's package manager:
+Running this is trivial with Julia's package manager:
 
-```jlcon
+```julia
 julia> Pkg.add("XKPasswd")
 INFO: Cloning cache of XKPasswd from https://github.com/freeboson/XKPasswd.jl.git
 INFO: Installing XKPasswd v0.0.1
@@ -30,12 +30,12 @@ INFO: Installing XKPasswd v0.0.1
 julia> using XKPasswd;
 
 julia> XKPasswd.generate(4, append_digit=false) # output here is just a joke
-Estimated entropy: ~45 bits.
+Entropy: ~45 bits; 100y BF attempt rate: 9 k att/s.
 1-element Array{String,1}:
  "correct horse battery staple"
 
 julia> XKPasswd.generate(6, npws=5, delimstr="-", capitalize=true)
-Estimated entropy: ~70 bits.
+Entropy: ~70 bits; 100y BF attempt rate: 450 G att/s.
 5-element Array{String,1}:
  "Succeed-Ruin-Variety-Rice-Claim-Be-1"
  "City-Ask-Right-Arrow-Excite-Disregard-9"
