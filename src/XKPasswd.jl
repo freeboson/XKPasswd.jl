@@ -135,7 +135,7 @@ you hit [Enter] on your keyboard. Arguments are the same as in
     This function puts VT100 commands to `STDOUT` and reads from file descriptor
     `0`, so it might not be applicable in all situations.
 """
-function spin_the_wheel(n::Integer=4, wordlist::AbstractString;
+function spin_the_wheel(n::Integer, wordlist::AbstractString;
                         capitalize::Bool=false, delimstr::AbstractString=" ",
                         append_digit::Bool=true)
     println(STDERR, stats(n, length(lines), append_digit))
@@ -154,9 +154,9 @@ function spin_the_wheel(n::Integer=4, wordlist::AbstractString;
     end
 end
 
-function spin_the_wheel(n::Integer, wordlist::WordList=simple;
-                  capitalize::Bool=false, delimstr::AbstractString=" ",
-                  append_digit::Bool=true)
+function spin_the_wheel(n::Integer=4, wordlist::WordList=simple;
+                        capitalize::Bool=false, delimstr::AbstractString=" ",
+                        append_digit::Bool=true)
     spin_the_wheel(n, wordlistfiles[wordlist], capitalize=capitalize,
                    delimstr=delimstr, append_digit=append_digit)
 end
