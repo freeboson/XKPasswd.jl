@@ -138,7 +138,10 @@ you hit [Enter] on your keyboard. Arguments are the same as in
 function spin_the_wheel(n::Integer, wordlist::AbstractString;
                         capitalize::Bool=false, delimstr::AbstractString=" ",
                         append_digit::Bool=true)
-    println(STDERR, stats(n, length(lines), append_digit))
+    open(wordlist) do f
+        lines = readlines(f);
+        println(STDERR, stats(n, length(lines), append_digit))
+    end
     println("Spinning... Press [enter] to end\n\n")
     while true
         ev = poll_fd(RawFD(0), 0, readable=true)
