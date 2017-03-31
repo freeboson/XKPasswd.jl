@@ -8,7 +8,13 @@ julia:
   - nightly
 notifications:
   email: false
-  irc: "ircs://chat.freenode.net:6697/#freeboson"
+  irc:
+    channels:
+      - "ircs://chat.freenode.net:6697/#freeboson"
+    template:
+      - "%{repository/%{branch}#%{build_number} (%{commit}) : %{message}"
+    on_success: change
+    on_failure: always
 # uncomment the following lines to override the default test script
 #script:
 #  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
