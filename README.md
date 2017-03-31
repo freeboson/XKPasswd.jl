@@ -104,6 +104,6 @@ BmZ;Kp]x~RLE-~@8A-UWaZQe8S50`C1
 ```
 
 In the last example, the `spin_the_wheel` method is used. It will cycle through
-random passwords of the specified format until hit [Enter]. (It reads from
-`STDIN` so it probably won't work in all situations.)
+random passwords of the specified format until hit <kbd>Enter</kbd>. (It reads
+from `STDIN` so you should probably only do it from REPL or CLI.)
 
