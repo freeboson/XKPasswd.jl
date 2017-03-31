@@ -54,6 +54,8 @@ access them in `XKPasswd.generate` from the `WordList` enum. The options are:
 
 + `XKPasswd.simple`, a list of 2248 simple words
 + `XKPasswd.jargon`, a list of 9460 more complicated words
++ `XKPasswd.immemorable`, the list of all 94 non-whitespace printable ASCII
+  characters (probably want to use `delimstr=""`)
 + `XKPasswd.google_20k`, a list of 20k words with *UK spelling*
 + `XKPasswd.google_10k`, a list of 10k words with *UK spelling*
 + `XKPasswd.google_10k_clean`, (86 "bad" words removed) with *UK spelling*
@@ -90,4 +92,18 @@ The three commands above will all produce `Array{String,1}` instances with:
    word capitalized, and with a single random digit at the end
 3. 5 passwords with 4 random words from the file `some_other_list.txt` in the
    current working directory, delimited by spaces
+
+Example from CLI (outside REPL):
+
+```
+julia -e 'using XKPasswd; XKPasswd.spin_the_wheel(30, XKPasswd.immemorable, delimstr="")'
+Entropy: ~200 bits; 100y BF attempt rate: 247244878803944656329659690780350 Y att/s.
+Spinning... Press [Enter] to end
+
+BmZ;Kp]x~RLE-~@8A-UWaZQe8S50`C1
+```
+
+In the last example, the `spin_the_wheel` method is used. It will cycle through
+random passwords of the specified format until hit [Enter]. (It reads from
+`STDIN` so it probably won't work in all situations.)
 

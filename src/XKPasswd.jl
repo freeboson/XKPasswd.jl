@@ -43,10 +43,30 @@ function pw100yattrate_pretty(s::Real)::AbstractString
     end
 end
 
-@enum WordList simple jargon google_20k google_10k google_10k_clean google_10k_usa google_10k_usa_clean google_10k_usa_clean_short google_10k_usa_clean_medium google_10k_usa_clean_long
+"""
+    @enum WordList
+
+An enum type used to indicate which of the builtin wordlists to use.
+
+The elements are:
++ `XKPasswd.simple`, a list of 2248 simple words
++ `XKPasswd.jargon`, a list of 9460 more complicated words
++ `XKPasswd.immemorable`, the list of all 94 non-whitespace printable ASCII
+  characters (probably want to use `delimstr=""`)
++ `XKPasswd.google_20k`, a list of 20k words with *UK spelling*
++ `XKPasswd.google_10k`, a list of 10k words with *UK spelling*
++ `XKPasswd.google_10k_clean`, (86 "bad" words removed) with *UK spelling*
++ `XKPasswd.google_10k_usa` the 10k list with *USA spelling*
++ `XKPasswd.google_10k_usa_clean` (98 "bad words removed)
++ `XKPasswd.google_10k_usa_clean_short` 2186 words with length < 5
++ `XKPasswd.google_10k_usa_clean_medium` 5471 words with length in [5,8]
++ `XKPasswd.google_10k_usa_clean_long` 2246 words with length > 8
+"""
+@enum WordList simple jargon immemorable google_20k google_10k google_10k_clean google_10k_usa google_10k_usa_clean google_10k_usa_clean_short google_10k_usa_clean_medium google_10k_usa_clean_long
 
 wordlistfiles = Dict(simple => joinpath(datapath, "simple.txt"),
                      jargon => joinpath(datapath, "jargon.txt"),
+                     immemorable => joinpath(datapath, "immemorable.txt"),
                      google_20k => joinpath(google10kpath, "20k.txt"),
                      google_10k => joinpath(google10kpath,
                                             "google-10000-english.txt"),
