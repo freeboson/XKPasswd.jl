@@ -145,7 +145,7 @@ function spin_the_wheel(n::Integer, wordlist::AbstractString;
     println("Spinning... Press [enter] to end\n\n")
     while true
         ev = poll_fd(RawFD(0), 0, readable=true)
-        p = rand(XKPasswd.generate(n, npws=20, quiet=true,
+        p = rand(XKPasswd.generate(n, wordlist, npws=20, quiet=true,
                                    capitalize=capitalize, delimstr=delimstr,
                                    append_digit=append_digit))
         print("\u1b[1A\u1b[K\u1b[1K")
