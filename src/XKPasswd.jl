@@ -52,7 +52,7 @@ The elements are:
 + `XKPasswd.simple`, a list of 2248 simple words
 + `XKPasswd.jargon`, a list of 9460 more complicated words
 + `XKPasswd.immemorable`, the list of all 94 non-whitespace printable ASCII
-  characters (probably want to use `delimstr=""`)
+  characters (probably want to use `delimstr=""` and lots of "words")
 + `XKPasswd.google_20k`, a list of 20k words with *UK spelling*
 + `XKPasswd.google_10k`, a list of 10k words with *UK spelling*
 + `XKPasswd.google_10k_clean`, (86 "bad" words removed) with *UK spelling*
