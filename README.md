@@ -104,6 +104,6 @@ BmZ;Kp]x~RLE-~@8A-UWaZQe8S50`C1
 ```
 
 In the last example, the `spin_the_wheel` method is used. It will cycle through
-random passwords of the specified format until hit <kbd>Enter</kbd>. (It reads
-from `STDIN` so you should probably only do it from REPL or CLI.)
-
+random passwords of the specified format until you hit <kbd>Enter</kbd>. (It
+reads from file descriptor zero and issues VT100 commands so you should probably
+only do it from REPL or CLI.)
