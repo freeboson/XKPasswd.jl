@@ -25,7 +25,6 @@ Running this is trivial with Julia's package manager:
 ```julia
 julia> Pkg.add("XKPasswd")
 INFO: Cloning cache of XKPasswd from https://github.com/freeboson/XKPasswd.jl.git
-INFO: Installing XKPasswd v0.0.1
 
 julia> using XKPasswd;
 
@@ -96,11 +95,11 @@ The three commands above will all produce `Array{String,1}` instances with:
 Example from CLI (outside REPL):
 
 ```
-julia -e 'using XKPasswd; XKPasswd.spin_the_wheel(30, XKPasswd.immemorable, delimstr="")'
-Entropy: ~200 bits; 100y BF attempt rate: 247244878803944656329659690780350 Y att/s.
+julia -e 'using XKPasswd; XKPasswd.spin_the_wheel(30, XKPasswd.immemorable, delimstr="", append_digit=false)'
+Entropy: ~197 bits; 100y BF attempt rate: 24724487880394354320522567111468 Y att/s.
 Spinning... Press [Enter] to end
 
-BmZ;Kp]x~RLE-~@8A-UWaZQe8S50`C1
+BmZ;Kp]x~RLE-~@8A-UWaZQe8S50`C
 ```
 
 In the last example, the `spin_the_wheel` method is used. It will cycle through
