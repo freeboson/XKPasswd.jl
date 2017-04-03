@@ -95,7 +95,7 @@ The three commands above will all produce `Array{String,1}` instances with:
 Example from CLI (outside REPL):
 
 ```
-julia -e 'using XKPasswd; XKPasswd.spin_the_wheel(30, XKPasswd.immemorable, delimstr="", append_digit=false)'
+$ julia -e 'using XKPasswd; XKPasswd.spin_the_wheel(30, XKPasswd.immemorable, delimstr="", append_digit=false)'
 Entropy: ~197 bits; 100y BF attempt rate: 24724487880394354320522567111468 Y att/s.
 Spinning... Press [Enter] to end
 
