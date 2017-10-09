@@ -81,7 +81,8 @@ wordlistfiles = Dict(simple => joinpath(datapath, "simple.txt"),
                      google_10k_usa_clean_medium => joinpath(google10kpath,
                          "google-10000-english-usa-no-swears-medium.txt"),
                      google_10k_usa_clean_long => joinpath(google10kpath,
-                         "google-10000-english-usa-no-swears-long.txt"))
+                         "google-10000-english-usa-no-swears-long.txt"),
+                     chinese => joinpath(datapath, "chinese.txt"))
 
 function stats(n, l, d)::AbstractString
     s = pwentropy(n, l, d)
@@ -101,13 +102,13 @@ Generate an array of memorable passwords of a given specification.
 * `npws::integer=1`: the number of passwords to generate
 * `captialize::Bool=false`: whether to capitalize the first letter of each word
 * `delimstr::AbstractString=" "`: what to insert between each word
-* `append_digit::Bool=true`: whether to tack on a single digit at the end
+* `append_digit::Bool=false`: whether to tack on a single digit at the end
 * `quiet::Bool=false`: whether to print entropy information to STDERR
 
 # Examples
 
 ```julia
-julia> XKPasswd.generate(4, append_digit=false) # output here is just a joke
+julia> XKPasswd.generate(4) # output here is just a joke
 Entropy: ~45 bits; 100y BF attempt rate: 9 k att/s.
 1-element Array{String,1}:
  "correct horse battery staple"
@@ -115,7 +116,7 @@ Entropy: ~45 bits; 100y BF attempt rate: 9 k att/s.
 """
 function generate(n::Integer, wordlist::AbstractString; npws::Integer=1,
                   capitalize::Bool=false, delimstr::AbstractString=" ",
-                  append_digit::Bool=true, quiet::Bool=false)
+                  append_digit::Bool=false, quiet::Bool=false)
     @assert n > 0 "Must use at least 1 random word"
     @assert npws > 0 "Must generate at least 1 password"
     open(wordlist) do f
@@ -138,7 +139,7 @@ end
 
 function generate(n::Integer, wordlist::WordList=simple; npws::Integer=1,
                   capitalize::Bool=false, delimstr::AbstractString=" ",
-                  append_digit::Bool=true, quiet::Bool=false)
+                  append_digit::Bool=false, quiet::Bool=false)
     generate(n, wordlistfiles[wordlist], npws=npws, capitalize=capitalize,
              delimstr=delimstr, append_digit=append_digit, quiet=quiet)
 end
@@ -157,7 +158,7 @@ you hit [Enter] on your keyboard. Arguments are the same as in
 """
 function spin_the_wheel(n::Integer, wordlist::AbstractString;
                         capitalize::Bool=false, delimstr::AbstractString=" ",
-                        append_digit::Bool=true)
+                        append_digit::Bool=false)
     open(wordlist) do f
         lines = readlines(f);
         println(STDERR, stats(n, length(lines), append_digit))
@@ -179,7 +180,7 @@ end
 
 function spin_the_wheel(n::Integer=4, wordlist::WordList=simple;
                         capitalize::Bool=false, delimstr::AbstractString=" ",
-                        append_digit::Bool=true)
+                        append_digit::Bool=false)
     spin_the_wheel(n, wordlistfiles[wordlist], capitalize=capitalize,
                    delimstr=delimstr, append_digit=append_digit)
 end
