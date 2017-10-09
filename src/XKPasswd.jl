@@ -62,11 +62,12 @@ The elements are:
 + `XKPasswd.google_10k_usa_clean_medium` 5471 words with length in [5,8]
 + `XKPasswd.google_10k_usa_clean_long` 2246 words with length > 8
 """
-@enum WordList simple jargon immemorable google_20k google_10k google_10k_clean google_10k_usa google_10k_usa_clean google_10k_usa_clean_short google_10k_usa_clean_medium google_10k_usa_clean_long
+@enum WordList simple jargon immemorable chinese google_20k google_10k google_10k_clean google_10k_usa google_10k_usa_clean google_10k_usa_clean_short google_10k_usa_clean_medium google_10k_usa_clean_long
 
 wordlistfiles = Dict(simple => joinpath(datapath, "simple.txt"),
                      jargon => joinpath(datapath, "jargon.txt"),
                      immemorable => joinpath(datapath, "immemorable.txt"),
+                     chinese => joinpath(datapath, "chinese.txt"),
                      google_20k => joinpath(google10kpath, "20k.txt"),
                      google_10k => joinpath(google10kpath,
                                             "google-10000-english.txt"),
@@ -81,8 +82,7 @@ wordlistfiles = Dict(simple => joinpath(datapath, "simple.txt"),
                      google_10k_usa_clean_medium => joinpath(google10kpath,
                          "google-10000-english-usa-no-swears-medium.txt"),
                      google_10k_usa_clean_long => joinpath(google10kpath,
-                         "google-10000-english-usa-no-swears-long.txt"),
-                     chinese => joinpath(datapath, "chinese.txt"))
+                         "google-10000-english-usa-no-swears-long.txt"))
 
 function stats(n, l, d)::AbstractString
     s = pwentropy(n, l, d)
