@@ -2,9 +2,14 @@
 language: julia
 os:
   - linux
-  - osx
+arch:
+  - x64
+cache:
+  directories:
+    - ~/.julia/artifacts
 julia:
-  - 0.6
+  - 1.0
+  - 1.7
   - nightly
 matrix:
     allow_failures:
@@ -13,13 +18,21 @@ notifications:
   email: false
   irc:
     channels:
-      - "ircs://chat.freenode.net:6697/#freeboson"
+      - "ircs://irc.libera.chat:6697/#freeboson"
     template:
       - "%{repository}/%{branch} #%{build_number} (%{commit}) : %{message}"
     on_success: change
     on_failure: always
+jobs:
+  fast_finish: true
+  allow_failures:
+    - julia: nightly
 git:
     depth: 99999999
 after_success:
-  - julia -e 'cd(Pkg.dir("XKPasswd")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
-  - julia -e 'cd(Pkg.dir("XKPasswd")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+  - |
+    julia -e '
+      using Pkg
+      Pkg.add("Coverage")
+      using Coverage
+      Codecov.submit(process_folder())'

@@ -22,7 +22,8 @@ This module does not export symbols but the main functions of interest are:
 """
 XKPasswd
 
-using Base.prettyprint_getunits
+using FileWatching: poll_fd
+using Printf: @sprintf
 
 const superunits = ["", " k", " M", " G", " T", " P", " E", " Z", " Y"]
 const secper100y = 3.154e9
@@ -38,7 +39,7 @@ function pw100yattrate_pretty(s::Real)::AbstractString
     if rate < 1
         @sprintf("%.1E", s)
     else
-        (atts, unit) = prettyprint_getunits(rate, length(superunits), 1000)
+        (atts, unit) = Base.prettyprint_getunits(rate, length(superunits), 1000)
         string(round(BigInt, atts), superunits[unit])
     end
 end
@@ -103,7 +104,7 @@ Generate an array of memorable passwords of a given specification.
 * `captialize::Bool=false`: whether to capitalize the first letter of each word
 * `delimstr::AbstractString=" "`: what to insert between each word
 * `append_digit::Bool=false`: whether to tack on a single digit at the end
-* `quiet::Bool=false`: whether to print entropy information to STDERR
+* `quiet::Bool=false`: whether to print entropy information to stderr
 
 # Examples
 
@@ -120,17 +121,15 @@ function generate(n::Integer, wordlist::AbstractString; npws::Integer=1,
     @assert n > 0 "Must use at least 1 random word"
     @assert npws > 0 "Must generate at least 1 password"
     open(wordlist) do f
-#        lines = readlines(f, chomp=true)
         lines = readlines(f);
 
         if (!quiet)
-            println(STDERR, stats(n, length(lines), append_digit))
+            println(stderr, stats(n, length(lines), append_digit))
         end
 
         [(
-#            words = rand(lines, n);
             words = map(chomp, rand(lines, n));
-            cased_words = capitalize ?  map(ucfirst, words) : words;
+            cased_words = capitalize ?  map(uppercasefirst, words) : words;
             string(join(cased_words, delimstr),
                    append_digit ? "$(delimstr)$(rand(0:9))" : "")
          ) for k in 1:npws]
@@ -153,7 +152,7 @@ you hit [Enter] on your keyboard. Arguments are the same as in
 
 !!! note
 
-    This function puts VT100 commands to `STDOUT` and reads from file descriptor
+    This function puts VT100 commands to `stdout` and reads from file descriptor
     `0`, so it might not be applicable in all situations.
 """
 function spin_the_wheel(n::Integer, wordlist::AbstractString;
@@ -161,7 +160,7 @@ function spin_the_wheel(n::Integer, wordlist::AbstractString;
                         append_digit::Bool=false)
     open(wordlist) do f
         lines = readlines(f);
-        println(STDERR, stats(n, length(lines), append_digit))
+        println(stderr, stats(n, length(lines), append_digit))
     end
     println("Spinning... Press [enter] to end\n\n")
     while true

@@ -6,16 +6,16 @@ __  __        ___                          _    _ _
 /_/\_\/  \/\/    \__,_|___/___/ \_/\_/ \__,_(_)/ |_|
                                              |__/   
 ```
-[![Build Status](https://travis-ci.org/freeboson/XKPasswd.jl.svg?branch=master)](https://travis-ci.org/freeboson/XKPasswd.jl)
-[![Coverage Status](https://coveralls.io/repos/freeboson/XKPasswd.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/freeboson/XKPasswd.jl?branch=master)
-[![codecov.io](http://codecov.io/github/freeboson/XKPasswd.jl/coverage.svg?branch=master)](http://codecov.io/github/freeboson/XKPasswd.jl?branch=master)
+[![Build Status](https://github.com/freeboson/XKPasswd.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/freeboson/XKPasswd.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Build Status](https://travis-ci.com/freeboson/XKPasswd.jl.svg?branch=main)](https://travis-ci.com/freeboson/XKPasswd.jl)
+[![Coverage](https://codecov.io/gh/freeboson/XKPasswd.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/freeboson/XKPasswd.jl)
 
 
 This is a password generator written in [Julia](https://julialang.org), inspired
 by [xkcd #963](https://xkcd.com/936/). There are word lists bundled with this
 repo, including the lists from [this
-repository](https://github.com/first20hours/google-10000-english) (included as
-a git submodule), but you can use also use your own.
+repository](https://github.com/first20hours/google-10000-english) see its
+license info in `data/google-10000-english/LICENSE.md`.
 
 Quickstart
 ----------
